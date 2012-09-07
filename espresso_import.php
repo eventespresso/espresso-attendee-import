@@ -36,7 +36,7 @@ function espresso_attendee_import() {
     <h3>Attendee Import</h3>
     <ul>
         <li>
-            <p>This page is for importing your attendees from a comma seperated file (CSV) directly into the the database.</p>
+            <p>This page is for importing your attendees from a comma seperated file (CSV) directly into the the database. This is the first pass at the uploader, but for those of you who have alot of attendees, particularly attendees that are similar in setup, this will be a time saver.</p>
             <p style=" font-weight:bold">Usage:</p>
 			<ol>
                 <li>Dates should be formatted YYYY-MM-DD (2009-07-04).</li>
@@ -45,7 +45,6 @@ function espresso_attendee_import() {
 				<li>One final note, you will see that the header row, fist column has a 0 while other rows have a 1.  This tells the upload to ignore rows that have the 0 identifier and only use rows with the 1.</li>
             </ol>
            
-            <p>This is the first pass at the uploader, but for those of you who have alot of attendees, particularly attendees that are similar in setup, this will be a time saver.</p>
             <?php
 			$success_messages = '';
 			$error_messages = '';
@@ -123,11 +122,6 @@ function uploader($num_of_uploads = 1, $file_types_array = array("csv"), $max_fi
 
 function load_attendees_to_db( $success_messages, $error_messages ) {
     global $wpdb;
- 
-    $curdate = date("Y-m-j");
-    $month = date('M');
-    $day = date('j');
-    $year = date('Y');
 
     $fieldseparator = ",";
     $lineseparator = "\n";
@@ -189,12 +183,7 @@ function load_attendees_to_db( $success_messages, $error_messages ) {
 
     $i = 0;
  	$tot_records = 0;
-    $question_groups_rs = $wpdb->get_results("select * from ".EVENTS_QST_GROUP_TABLE." where wp_user = ".$current_user->ID." and system_group = 1");
-    $question_groups_ar = array();
-    foreach($question_groups_rs as $question_group) {
-        $question_groups_ar[] = $question_group->id;
-    }
-    $question_groups = serialize($question_groups_ar); 
+   
  
 /*echo '<pre style="height:auto;border:2px solid lightblue;">' . print_r( $dataStrings, TRUE ) . '</pre><br /><span style="font-size:10px;font-weight:normal;">' . __FILE__ . '<br />line no: ' . __LINE__ . '</span>';die();*/
 
@@ -213,7 +202,7 @@ function load_attendees_to_db( $success_messages, $error_messages ) {
             $skip = $strings[0];
 			
 			$event_id = $strings[6];
-            	$fname = $strings[2];
+            $fname = $strings[2];
 			$lname = $strings[3];
 			$email = $strings[4];
 			
@@ -268,6 +257,7 @@ function load_attendees_to_db( $success_messages, $error_messages ) {
 						case 3 :
 							$answer = $email;
 							break;
+						
 					}
 
 					if ( $wpdb->insert( 

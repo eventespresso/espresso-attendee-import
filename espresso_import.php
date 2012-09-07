@@ -290,7 +290,7 @@ function load_attendees_to_db( $success_messages, $error_messages ) {
 							break;
 					}
 
-					if ($q < 4 && $wpdb->insert( 
+					if ($q != 4 && $wpdb->insert( 
 						EVENTS_ANSWER_TABLE, 
 						array( 
 							'registration_id' => $registration_id,

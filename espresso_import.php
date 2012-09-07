@@ -1,6 +1,6 @@
 <?php
 /*
-  Plugin Name: Event Espresso _ Attendee Import
+  Plugin Name: Event Espresso - Attendee Import
   Plugin URI: http://eventespresso.com/
   Description: Allows the import of attndees into Event Espresso
 
@@ -26,11 +26,13 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-
-
-
-
-function espresso_attendee_import() { ?>
+function espresso_attendee_import() {
+	$wp_plugin_url = WP_PLUGIN_URL;
+	$wp_content_url = WP_CONTENT_URL;
+	define("ESPRESSO_ATTENDEE_IMPORT_PLUGINPATH", "/" . plugin_basename(dirname(__FILE__)) . "/");
+	define("ESPRESSO_ATTENDEE_IMPORT_PLUGINPATH", WP_PLUGIN_DIR . ESPRESSO_ATTENDEE_IMPORT_PLUGINPATH);
+	define("ESPRESSO_ATTENDEE_PLUGINFULLURL", $wp_plugin_url . ESPRESSO_ATTENDEE_IMPORT_PLUGINPATH);
+?>
     <h3>Attendee Import</h3>
     <ul>
         <li>
@@ -38,7 +40,7 @@ function espresso_attendee_import() { ?>
             <p style=" font-weight:bold">Usage:</p>
 			<ol>
                 <li>Dates should be formatted YYYY-MM-DD (2009-07-04).</li>
-                <li>I have included a template file <a href="<?php echo EVENT_ESPRESSO_PLUGINFULLURL ?>attendees.csv">here</a> that I recommend you download and use.  It is very easy to work with it in excel, just remember to save it as a csv and not excel sheet.</li>
+                <li>I have included a template file <a href="<?php echo ESPRESSO_ATTENDEE_PLUGINFULLURL; ?>attendees.csv">here</a> that I recommend you download and use.  It is very easy to work with it in excel, just remember to save it as a csv and not excel sheet.</li>
                 <li>The file name should be events.csv in order for it to work. I will fix this issue later, I just wanted to get this working first.</li>
 				<li>One final note, you will see that the header row, fist column has a 0 while other rows have a 1.  This tells the upload to ignore rows that have the 0 identifier and only use rows with the 1.</li>
             </ol>
@@ -77,7 +79,7 @@ function uploader($num_of_uploads = 1, $file_types_array = array("csv"), $max_fi
         for ($x = 0; $x < $num_of_uploads; $x++) {
             $form .= "<p><font color='red'>*</font><input type='file' name='file[]'>";
         }
-        $form .= "<input class='button-primary' type='submit' value='Upload File & Add Attendee(s)'></p></form>";
+        $form .= "<input class='button-primary' type='submit' value='Upload Attendee(s)'></p></form>";
         echo($form);
     } else {
         foreach ($_FILES["file"]["error"] as $key => $value) {

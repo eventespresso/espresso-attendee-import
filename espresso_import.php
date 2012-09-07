@@ -32,6 +32,8 @@ function espresso_attendee_import() {
 	define("ESPRESSO_ATTENDEE_IMPORT_PLUGINPATH", "/" . plugin_basename(dirname(__FILE__)) . "/");
 	define("ESPRESSO_ATTENDEE_IMPORT_PLUGINPATH", WP_PLUGIN_DIR . ESPRESSO_ATTENDEE_IMPORT_PLUGINPATH);
 	define("ESPRESSO_ATTENDEE_PLUGINFULLURL", $wp_plugin_url . ESPRESSO_ATTENDEE_IMPORT_PLUGINPATH);
+	
+	
 ?>
     <h3>Attendee Import</h3>
     <ul>
@@ -205,6 +207,7 @@ function load_attendees_to_db( $success_messages, $error_messages ) {
             $fname = $strings[2];
 			$lname = $strings[3];
 			$email = $strings[4];
+			$answer_data = $strings[12];
 			
 			if ($skip >= "1" && !empty($event_id)) {
                				
@@ -245,7 +248,7 @@ function load_attendees_to_db( $success_messages, $error_messages ) {
                     $last_attendee_id = $wpdb->insert_id;
                 }
 			 
-				for ( $q = 1; $q <= 3; $q++ ) {
+				for ( $q = 1; $q <= 4; $q++ ) {
 				
 					switch ( $q ) {
 						case 1 :
@@ -257,10 +260,37 @@ function load_attendees_to_db( $success_messages, $error_messages ) {
 						case 3 :
 							$answer = $email;
 							break;
-						
+						case 4 :	
+							$answer_data = explode('||', $answer_data);
+							
+							foreach ($answer_data as $a_data) {
+								$answer_data = explode('|', $a_data);
+								
+								$x_q = !empty($answer_data[0]) ? trim($answer_data[0]) : '';
+								$x_answer = !empty($answer_data[1]) ? trim($answer_data[1]) : '';
+								
+								if ( $wpdb->insert( 
+									EVENTS_ANSWER_TABLE, 
+									array( 
+										'registration_id' => $registration_id,
+										'attendee_id' => $last_attendee_id,
+										'question_id' => $x_q,
+										'answer' => $x_answer,
+									), 
+									array( 
+										'%s', 
+										'%d', 
+										'%d', 
+										'%s' 
+									) 
+								) === false ) {
+									print $wpdb->print_error();
+								}
+							}
+							break;
 					}
 
-					if ( $wpdb->insert( 
+					if ($q < 4 && $wpdb->insert( 
 						EVENTS_ANSWER_TABLE, 
 						array( 
 							'registration_id' => $registration_id,

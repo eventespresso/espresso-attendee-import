@@ -38,7 +38,7 @@ function espresso_attendee_import() {
     <h3>Attendee Import</h3>
     <ul>
         <li>
-            <p>This page is for importing your attendees from a comma seperated file (CSV) directly into the the database. This is the first pass at the uploader, but for those of you who have alot of attendees, particularly attendees that are similar in setup, this will be a time saver.</p>
+            <p>This page is for importing your attendees from a comma separated file (CSV) directly into the the database. This is the first pass at the up-loader, but for those of you who have a lot of attendees, particularly attendees that are similar in setup, this will be a time saver.</p>
             <p style=" font-weight:bold">Usage:</p>
 			<ol>
                 <li>Dates should be formatted YYYY-MM-DD (2009-07-04).</li>

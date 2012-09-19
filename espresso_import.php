@@ -43,7 +43,7 @@ function espresso_attendee_import() {
 			<ol>
                 <li>Dates should be formatted YYYY-MM-DD (2009-07-04).</li>
                 <li>I have included a template file <a href="<?php echo ESPRESSO_ATTENDEE_PLUGINFULLURL; ?>attendees.csv">here</a> that I recommend you download and use.  It is very easy to work with it in excel, just remember to save it as a csv and not excel sheet.</li>
-                <li>The file name should be events.csv in order for it to work. I will fix this issue later, I just wanted to get this working first.</li>
+                <li>The file name should be attendees.csv in order for it to work. I will fix this issue later, I just wanted to get this working first.</li>
 				<li>One final note, you will see that the header row, fist column has a 0 while other rows have a 1.  This tells the upload to ignore rows that have the 0 identifier and only use rows with the 1.</li>
             </ol>
            

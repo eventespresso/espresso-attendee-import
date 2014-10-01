@@ -227,7 +227,8 @@ function load_attendees_to_db( $success_messages, $error_messages ) {
 						'payment_status' => $strings[8],
 						'price_option' => $strings[9],
 						'start_date' => event_date_display($strings['10'], 'Y-m-d'),
-						'event_time' => $strings[11]
+						'event_time' => $strings[11],
+            'is_primary' => '1'
 					), 
 					array( 
 						'%s', // registration_id
@@ -240,7 +241,8 @@ function load_attendees_to_db( $success_messages, $error_messages ) {
 						'%s',  // payment_status
 						'%s',  // price_option
 						'%s',  // start_date
-						'%s'  // event_time
+						'%s',  // event_time
+            '%d',  // is_primary
 					) 
 				) === false ) {
 					print $wpdb->print_error();

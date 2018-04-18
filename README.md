@@ -1,4 +1,5 @@
-Espresso Attendee Import
+
+## Espresso Attendee Import
 
 This is an add-on for Event Espresso 3.1 (or legacy EE)
 http://eventespresso.com
